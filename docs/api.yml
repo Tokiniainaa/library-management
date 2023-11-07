@@ -113,7 +113,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/author'
-
+  /authors/{authorId}:
     delete:
       tags:
         - "Author"
@@ -122,8 +122,8 @@ paths:
       operationId: deletePet
       parameters:
          - in: query
-           name: authorName
-           description: 'delete the author by given the name '
+           name: authorId
+           description: 'delete the author by given the id'
            required: false
            schema:
             type: string
@@ -136,6 +136,42 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/author'
+    
+  /books/{bookId}/authors/{authorId}: 
+    put:
+     summary: Associate
+     description: Associate author and books
+     operationId: update author
+     parameters:
+        - in: query
+          name: bookId
+          description: update authors by given bookId
+          required: true
+          schema:
+            type: integer
+
+        - in: query
+          name: authorId
+          description: update authors by given authorId
+          required: true
+          schema:
+            type: integer    
+
+     responses:
+      200:
+       description: author updated
+       content:
+         application/json:
+          schema:
+           type: array
+           items:
+            $ref: '#/components/schemas/author'
+  
+          
+
+       
+
+                 
 
         
        
