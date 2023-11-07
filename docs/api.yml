@@ -146,6 +146,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/author'
+    delete:
+     tags:
+       - "Author"
+     summary: Delete all Authors
+     operationId: Delete all Authors
+     responses:
+       200:
+        description: All Authors is deleted
+
   /authors/{authorId}:
     delete:
       tags:
@@ -169,6 +178,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/author'
+ 
     
   /books/{bookId}/authors/{authorId}: 
     put:
