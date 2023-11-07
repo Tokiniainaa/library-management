@@ -166,6 +166,28 @@ paths:
            type: array
            items:
             $ref: '#/components/schemas/author'
+
+  /books/authors:
+    put:
+     summary: update book and author
+     description: update book and author
+     operationId: UpdateBookAuthor
+
+     requestBody:
+      content:
+        application/json:
+         schema: 
+          items:
+           $ref: '#/components/schemas/UpdateBookAuthor'
+     responses:
+       200:
+        description: updated succesfully
+        content:
+          application/json:
+           schema:
+             type: array
+             items:
+                $ref: "#/components/schemas/UpdateBookAuthor"
   
           
 
@@ -221,4 +243,11 @@ components:
             releaseDate:
               type: string
               format: date
+    UpdateBookAuthor:
+            type: object
+            properties:
+              bookId:
+               type: integer
+              authorId:
+               type: integer
 
