@@ -100,6 +100,22 @@ paths:
           required: false
           schema:
             type: string
+        - in: path
+          name: page
+          description: the number of the page
+          required: true
+          schema:
+             items:
+              $ref: "#/components/schemas/Page"
+             default: 1
+        - in: path
+          name: pageSize
+          description: the size of the page 
+          required: true
+          schema:
+            items:
+              $ref: "#/components/schemas/PageSize"
+            default: 50
       responses:
         200:
           description: The list of filtered authors
