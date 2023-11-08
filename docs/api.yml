@@ -234,13 +234,6 @@ paths:
               $ref: '#/components/schemas/author'
           
 
-       
-
-                 
-
-        
-       
-
 components:
   schemas:
     Book:
@@ -293,6 +286,54 @@ components:
                type: integer
               authorId:
                type: integer
+    ApiResponses:
+            type: object
+            properties:
+              status:
+               type: object
+               properties:
+                code:
+                 type: integer
+                message:
+                 type: string
+              body:
+                type: object
+    succesfullyResponses:
+      allOf:
+      - $ref: "#/components/schemas/ApiResponses"
+      example:
+        status:
+         code: 200
+         message: "response succesfull"
+        body: ''
+    badRequest:
+      allOf:
+      - $ref: "#/components/schemas/ApiResponses"
+      example:
+        status:
+         code: 400
+         message: "bad request"
+        body: ''
+    Forbidden:
+      allOf:
+      - $ref: "#/components/schemas/ApiResponses"
+      example:
+        status:
+         code: 403
+         message: "Forbidden"
+        body: ''
+    internalServerError:
+      allOf:
+      - $ref: "#/components/schemas/ApiResponses"
+      example:
+        status:
+         code: 500
+         message: "internal server error"
+        body: ''
+
+
+                  
+        
     
 
   parameters:
