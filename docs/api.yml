@@ -74,6 +74,54 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+  /books/import:
+     post: 
+      tags:
+        - "Books"
+      summary: return the list of the book imported
+      operationId: return the list of the book imported
+      requestBody:
+       description: list of book
+       content:
+         application/json:
+          schema:
+           type: array
+           items:
+              $ref: "#/components/schemas/ImportBook" 
+      responses:
+        200:
+         description: list of imported book
+         content:
+           application/json:
+            schema: 
+             type: array
+             items:
+              $ref: "#/components/schemas/Book"
+  /authors/import:
+     post: 
+      tags:
+        - "Author"
+      summary: return the list of the author imported
+      operationId: return the list of the author imported
+      requestBody:
+       description: list of author
+       content:
+         application/json:
+          schema:
+           type: array
+           items:
+              $ref: "#/components/schemas/ImportAuthor" 
+      responses:
+        200:
+         description: list of imported author
+         content:
+           application/json:
+            schema: 
+             type: array
+             items:
+              $ref: "#/components/schemas/author"        
+         
+
   /authors:
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
     get:
@@ -271,14 +319,16 @@ components:
             pageNumbers:
              type: integer
             topic:
+             $ref: "#/components/schemas/Topic"
+            releaseDate:
+              type: string
+              format: date
+    Topic: 
              type: string
              enum:
                - ROMANCE
                - COMEDY 
                - OTHER
-            releaseDate:
-              type: string
-              format: date
     UpdateBookAuthor:
             type: object
             properties:
@@ -330,7 +380,26 @@ components:
          code: 500
          message: "internal server error"
         body: ''
-
+    ImportBook:
+      type: object
+      properties:
+        bookName:
+          type: string
+        author:
+          $ref: "#/components/schemas/author"
+        pageNumbers:
+          $ref: "#/components/parameters/queryPagination/schema/properties/pageSize"
+        topic:
+          $ref: "#/components/schemas/Topic"
+        releaseDate:
+          type: string
+          format: date
+    ImportAuthor:
+      type: object
+      properties:
+        author:
+          $ref: "#/components/schemas/author"
+       
 
                   
         
