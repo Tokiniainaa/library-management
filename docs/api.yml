@@ -90,7 +90,7 @@ paths:
           schema:
             type: string
         - in: path
-          name: pathpagination
+          name: querypagination
           $ref: "#/components/parameters/queryPagination"
             
         
@@ -212,7 +212,26 @@ paths:
              type: array
              items:
                 $ref: "#/components/schemas/UpdateBookAuthor"
-  
+  /authors/page/{page}/pageSize/{pageSize} :
+    get:
+     tags:
+      - "Author"
+     summary: get author
+     description: get author
+     operationId: getAuthor
+     parameters:
+      - in: path
+        name: pathpagination
+        $ref: "#/components/parameters/pathPagination"
+     responses:
+        200:
+         description: The list of authors
+         content:
+           application/json:
+            schema: 
+             type: array
+             items:
+              $ref: '#/components/schemas/author'
           
 
        
