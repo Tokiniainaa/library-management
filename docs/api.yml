@@ -37,21 +37,10 @@ paths:
             type: string
             format: date  
         - in: query
-          name: page
-          description: the number of the page
-          required: false
-          schema:
-             items:
-              $ref: "#/components/schemas/Page"
-             default: 1
-        - in: query
-          name: pageSize
-          description: the size of the page 
-          required: false
-          schema:
-            items:
-              $ref: "#/components/schemas/PageSize"
-            default: 50
+          name: queryPagination
+          $ref: "#/components/parameters/queryPagination"
+        
+    
 
               
 
@@ -101,21 +90,11 @@ paths:
           schema:
             type: string
         - in: path
-          name: page
-          description: the number of the page
-          required: true
-          schema:
-             items:
-              $ref: "#/components/schemas/Page"
-             default: 1
-        - in: path
-          name: pageSize
-          description: the size of the page 
-          required: true
-          schema:
-            items:
-              $ref: "#/components/schemas/PageSize"
-            default: 50
+          name: pathpagination
+          $ref: "#/components/parameters/queryPagination"
+            
+        
+            
       responses:
         200:
           description: The list of filtered authors
@@ -295,9 +274,38 @@ components:
                type: integer
               authorId:
                type: integer
-    Page: 
-     type: integer
+    
+
+  parameters:
+    queryPagination:
      
-    PageSize:
-     type: integer
+     in: query
+     name: querypagination
+     schema: 
+      type: object
+      properties:
+        page:
+         type: integer
+         default: 1
+        pageSize:
+         type: integer
+         default: 50
+     required: true
+   
+    pathPagination:
+     in: path
+     name: pathpagination
+     schema: 
+      type: object
+      properties:
+        page:
+         type: integer
+         default: 1
+        pageSize:
+         type: integer
+         default: 50
+     required: true
+   
+
+     
 
