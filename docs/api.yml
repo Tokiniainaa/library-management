@@ -36,9 +36,8 @@ paths:
           schema:
             type: string
             format: date  
-        - in: query
-          name: queryPagination
-          $ref: "#/components/parameters/queryPagination"
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/pageSize"
         
     
 
@@ -85,12 +84,10 @@ paths:
        content:
          application/json:
           schema:
-           oneOf:
-             - $ref: "#/components/schemas/ImportBook" 
+           $ref: "#/components/schemas/ImportBook" 
          application/vnd.ms-excel:
             schema: 
-             oneOf:
-             - $ref: "#/components/schemas/ImportBook" 
+             $ref: "#/components/schemas/ImportBookExcel" 
       responses:
         200:
          description: list of imported book
@@ -116,12 +113,10 @@ paths:
        content:
          application/json:
           schema:
-            oneOf:
-              - $ref: "#/components/schemas/ImportAuthor" 
+           $ref: "#/components/schemas/ImportAuthor" 
          application/vnd.ms-excel:
             schema: 
-              oneOf:
-              - $ref: "#/components/schemas/ImportAuthor" 
+              $ref: "#/components/schemas/ImportAuthorExcel" 
 
 
       responses:
@@ -155,9 +150,8 @@ paths:
           required: false
           schema:
             type: string
-        - in: path
-          name: querypagination
-          $ref: "#/components/parameters/queryPagination"
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/pageSize"
             
         
             
@@ -287,8 +281,18 @@ paths:
      operationId: getAuthor
      parameters:
       - in: path
-        name: pathpagination
-        $ref: "#/components/parameters/pathPagination"
+        name: page
+        schema:
+          type: integer
+          default: 1
+        required: true
+      - in: path
+        name: pageSize
+        schema:
+         type: integer
+         default: 50
+        required: true
+
      responses:
         200:
          description: The list of authors
@@ -398,6 +402,8 @@ components:
          code: 500
          message: "internal server error"
         body: ''
+  
+
     ImportBook:
       type: object
       properties:
@@ -406,7 +412,7 @@ components:
         author:
           $ref: "#/components/schemas/author"
         pageNumbers:
-          $ref: "#/components/parameters/queryPagination/schema/properties/pageSize"
+          $ref: "#/components/parameters/pageSize"
         topic:
           $ref: "#/components/schemas/Topic"
         releaseDate:
@@ -418,41 +424,43 @@ components:
         author:
           $ref: "#/components/schemas/author"
     
-   
-
-       
-
-                  
-
+    ImportBookExcel:
+      type: object
+      properties:
+        bookName:
+          type: string
+        author:
+          $ref: "#/components/schemas/author"
+        pageNumbers:
+          $ref: "#/components/parameters/pageSize"
+        topic:
+          $ref: "#/components/schemas/Topic"
+        releaseDate:
+          type: string
+          format: date
+    ImportAuthorExcel:
+      type: object
+      properties:
+        author:
+          $ref: "#/components/schemas/author"
+    
+    
   parameters:
-    queryPagination:
-     
+    Page:
      in: query
-     name: querypagination
-     schema: 
-      type: object
-      properties:
-        page:
-         type: integer
-         default: 1
-        pageSize:
-         type: integer
-         default: 50
-     required: true
-   
-    pathPagination:
-     in: path
-     name: pathpagination
-     schema: 
-      type: object
-      properties:
-        page:
-         type: integer
-         default: 1
-        pageSize:
-         type: integer
-         default: 50
-     required: true
+     name: page
+     schema:
+      type: integer
+      default: 1
+     required: false
+    pageSize:
+      in: query
+      name: pageSize
+      schema:
+       type: integer
+       default: 50
+      required: false
+    
    
 
      
