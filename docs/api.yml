@@ -153,6 +153,10 @@ paths:
       tags:
         - "Author"
       summary: Create or update a author
+      security:
+       - api_key: []
+       - OAuth2: 
+          - add:book
       operationId: crupdateAuthor
       requestBody:
         content:
@@ -334,9 +338,8 @@ paths:
         403:
            $ref: '#/components/responses/403'
         500:
-           $ref: '#/components/responses/500'  
-      
-
+           $ref: '#/components/responses/500' 
+ 
           
 
 components:
@@ -539,7 +542,18 @@ components:
         author:
           $ref: "#/components/schemas/author"
     
-    
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://library.com/oauth/authorize
+          tokenUrl: https://library.com/oauth/token
+          scopes:
+            borrow:books: borrow a book
+            return:books: return a book
+            add:authors: add author
+            add:books: add book
   parameters:
     Page:
      in: query
@@ -617,12 +631,19 @@ components:
        application/json:
         schema: 
          $ref: '#/components/schemas/VisitorListBody'
+
     ListOftheCrupdateVisitor_200:
      description: The list of the created or updated visitor
      content:
         application/json:
           schema:
             $ref: '#/components/schemas/VisitorListBody'
+    VisitorBorrowOrReturnBook_200:
+     description: Visitor  who borrowed or return a book
+     content:
+       application/json:
+        schema: 
+         $ref: '#/components/schemas/VisitorListBody'
     400:
       description: Bad Request
       content:
