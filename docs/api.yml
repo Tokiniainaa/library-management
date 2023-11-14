@@ -339,7 +339,46 @@ paths:
            $ref: '#/components/responses/403'
         500:
            $ref: '#/components/responses/500' 
- 
+  /visitors/{visitorId}/borrow/return:
+   put:
+    tags:
+      - "Visitor" 
+    summary: borrow or return a book
+    security:
+     - api_key: []
+     - OAuth2: 
+       - borrow:books
+    
+    operationId: borrowOrReturnBook
+    parameters:
+      - in : path
+        name: visitorId
+        required: true
+        schema:
+         type: string
+      - in : query
+        name: bookId
+        required: true
+        schema:
+         type: string
+      - in: query
+        name: action
+        required: true
+        schema:
+          type: string
+          enum: ["borrow", "return"]
+    responses:
+       200:
+        $ref: '#/components/responses/VisitorBorrowOrReturnBook_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'  
+      
+
+          
 
 components:
   schemas:
