@@ -287,7 +287,56 @@ paths:
         403:
            $ref: '#/components/responses/403'
         500:
+           $ref: '#/components/responses/500'
+  /visitor:
+    get:
+     tags:
+       - "Visitor"
+     summary: Get all Visitors
+     description: The returned Visitor
+     operationId: getVisitor
+     parameters:
+        - in: query
+          name: visitorName
+          description: Filter return visitor by given name
+          required: false
+          schema:
+            type: string
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/pageSize"
+     responses:
+        200:
+          $ref: '#/components/responses/Visitor_200'
+        400:
+           $ref: '#/components/responses/400' 
+        403:
+           $ref: '#/components/responses/403'
+        500:
            $ref: '#/components/responses/500'  
+      
+    put:
+      tags:
+        - "Visitor"
+      summary: Create or update a visitor
+      operationId: crupdateVisitor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Visitor'
+      responses:
+        200:
+          $ref: '#/components/responses/ListOftheCrupdateVisitor_200'
+        400:
+           $ref: '#/components/responses/400' 
+        403:
+           $ref: '#/components/responses/403'
+        500:
+           $ref: '#/components/responses/500'  
+      
+
           
 
 components:
@@ -408,6 +457,23 @@ components:
            type: array
            items:
             $ref: "#/components/schemas/UpdateBookAuthor"
+    VisitorListBody:
+      allOf:
+      - $ref: "#/components/schemas/ApiResponses"
+      - properties:
+          body:
+           type: array
+           items:
+            $ref: "#/components/schemas/Visitor"
+    Visitor:
+     type: object
+     properties:
+      id:
+       type: integer
+      name: 
+       type: string
+      reference: 
+       type: string
      
   
 
@@ -523,6 +589,18 @@ components:
        application/json:
         schema: 
          $ref: '#/components/schemas/UpdateBookAuthorBody'
+    Visitor_200:
+     description: all visitor
+     content:
+       application/json:
+        schema: 
+         $ref: '#/components/schemas/VisitorListBody'
+    ListOftheCrupdateVisitor_200:
+     description: The list of the created or updated visitor
+     content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VisitorListBody'
     400:
       description: Bad Request
       content:
