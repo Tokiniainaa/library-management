@@ -474,6 +474,10 @@ components:
        type: string
       reference: 
        type: string
+      status:
+       enum:
+         - available
+         - borrowed
      
   
 
