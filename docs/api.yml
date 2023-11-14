@@ -250,14 +250,14 @@ paths:
           items:
            $ref: '#/components/schemas/UpdateBookAuthor'
      responses:
-       200:
-        description: updated succesfully
-        content:
-          application/json:
-           schema:
-             type: array
-             items:
-                $ref: "#/components/schemas/UpdateBookAuthor"
+        200:
+          $ref: '#/components/responses/UpdateBookAuthor_200'
+        400:
+           $ref: '#/components/responses/400' 
+        403:
+           $ref: '#/components/responses/403'
+        500:
+           $ref: '#/components/responses/500'  
   /authors/page/{page}/pageSize/{pageSize} :
     get:
      tags:
@@ -400,6 +400,14 @@ components:
            type: array
            items:
             $ref: "#/components/schemas/author"
+    UpdateBookAuthorBody:
+      allOf:
+      - $ref: "#/components/schemas/ApiResponses"
+      - properties:
+          body:
+           type: array
+           items:
+            $ref: "#/components/schemas/UpdateBookAuthor"
      
   
 
@@ -459,6 +467,7 @@ components:
        type: integer
        default: 50
       required: false
+
   responses:
     ListOftheBook_200:
      description: the list of the filtered book
@@ -508,6 +517,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/AuthorListBody'
+    UpdateBookAuthor_200:
+     description: updated succesfully
+     content:
+       application/json:
+        schema: 
+         $ref: '#/components/schemas/UpdateBookAuthorBody'
     400:
       description: Bad Request
       content:
