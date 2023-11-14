@@ -111,18 +111,13 @@ paths:
 
       responses:
         200:
-         description: list of imported author
-         content:
-           application/json:
-            schema: 
-             type: array
-             items:
-              $ref: "#/components/schemas/author" 
-           application/vnd.ms-excel:
-            schema: 
-             type: array
-             items:
-               $ref: "#/components/schemas/author"        
+          $ref: '#/components/responses/ListOfImportedAuthor_200'
+        400:
+           $ref: '#/components/responses/400' 
+        403:
+           $ref: '#/components/responses/403'
+        500:
+           $ref: '#/components/responses/500'       
          
 
   /authors:
@@ -168,13 +163,13 @@ paths:
                 $ref: '#/components/schemas/author'
       responses:
         200:
-          description: The created or updated authors
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/author'
+          $ref: '#/components/responses/ListOftheCrupdateAuthor_200'
+        400:
+           $ref: '#/components/responses/400' 
+        403:
+           $ref: '#/components/responses/403'
+        500:
+           $ref: '#/components/responses/500'  
     delete:
      tags:
        - "Author"
@@ -200,13 +195,13 @@ paths:
             type: string
       responses:
         200:
-           description: The deleted authors
-           content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/author'
+          $ref: '#/components/responses/TheAuthorDeleted_200'
+        400:
+           $ref: '#/components/responses/400' 
+        403:
+           $ref: '#/components/responses/403'
+        500:
+           $ref: '#/components/responses/500'  
  
     
   /books/{bookId}/authors/{authorId}: 
@@ -232,14 +227,15 @@ paths:
             type: integer    
 
      responses:
-      200:
-       description: author updated
-       content:
-         application/json:
-          schema:
-           type: array
-           items:
-            $ref: '#/components/schemas/author'
+        200:
+          $ref: '#/components/responses/AssociateBookAndAuthor_200'
+        400:
+           $ref: '#/components/responses/400' 
+        403:
+           $ref: '#/components/responses/403'
+        500:
+           $ref: '#/components/responses/500'  
+ 
 
   /books/authors:
     put:
@@ -285,13 +281,13 @@ paths:
 
      responses:
         200:
-         description: The list of authors
-         content:
-           application/json:
-            schema: 
-             type: array
-             items:
-              $ref: '#/components/schemas/author'
+          $ref: '#/components/responses/ListOftheAuthor_200'
+        400:
+           $ref: '#/components/responses/400' 
+        403:
+           $ref: '#/components/responses/403'
+        500:
+           $ref: '#/components/responses/500'  
           
 
 components:
@@ -482,8 +478,32 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BookListBody'
+    ListOftheCrupdateAuthor_200:
+     description: The list of the created or updated author
+     content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorListBody'
+    ListOfImportedAuthor_200:
+       description: the list of imported author
+       content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorListBody'
     ListOftheAuthor_200:
      description: the list of the filtered author
+     content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorListBody'
+    TheAuthorDeleted_200:
+     description: the author deleted
+     content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorListBody'
+    AssociateBookAndAuthor_200:
+     description: the author updated
      content:
         application/json:
           schema:
