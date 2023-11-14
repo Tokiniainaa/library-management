@@ -340,7 +340,6 @@ paths:
         500:
            $ref: '#/components/responses/500' 
  
-          
 
 components:
   schemas:
@@ -477,10 +476,6 @@ components:
        type: string
       reference: 
        type: string
-      status:
-       enum:
-         - available
-         - borrowed
     VisitorActivity:
       type: object
       properties:
